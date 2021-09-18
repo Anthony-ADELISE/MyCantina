@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { AppBar, Collapse, IconButton, Toolbar } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import SortIcon from '@material-ui/icons/Sort';
+import HomeIcon from '@material-ui/icons/Home';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '4rem',
     },
     appbarTitle: {
-        flexGrow: '1'
+        flexGrow: '1',
+        fontSize: '2em',
     },
     colorTitle: {
         color: '#ffa500',
@@ -68,7 +70,12 @@ export default function Header () {
                         <Nav>
                             <LinkContainer to="/">
                                 <Nav.Link className="link">
-                                    <SortIcon className={classes.icon} />
+                                    <HomeIcon className={classes.icon} />
+                                </Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="/ajoutsrecettes">
+                                <Nav.Link className="link">
+                                    <FastfoodIcon className={classes.icon} />
                                 </Nav.Link>
                             </LinkContainer>
                         </Nav>

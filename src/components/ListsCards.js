@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -66,8 +66,35 @@ const useStyles = makeStyles((theme) => ({
     .then(recipes => {
       setRecettes(recipes);
     });
+    getRecettes();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function getRecettes (id)
+  {
+    fetch(`http://localhost:9000/api/recipes/${id}`)
+    .then(res => res.json())
+    .then(recipes => {
+      setRecettes(recipes);
+    });
+  }
+
+  function selectRecettes (id) 
+  {
+    console.warn(recettes[id-1])
+  }
+
+  function deleteRecettes(id)
+  {
+    fetch(`http://localhost:9000/api/recipe/${id}`, {
+      method: 'DELETE'
+    }).then((result)=> {
+      result.json().then((resp)=> {
+        console.warn(resp)
+        getRecettes();
+      })
+    })
+  }
     
     return (
         <div className={classes.root} id="enjoy-your-meals">
@@ -109,10 +136,12 @@ const useStyles = makeStyles((theme) => ({
                 </Typography>
                 </CardContent>
             <CardActions >
-                <Button size="small" color="primary" className={classes.buttonColor}>
+              <Link className={classes.linkBack} to={`/modifier`}>
+                <Button size="small" color="primary" className={classes.buttonColor} onClick={()=> selectRecettes(recette.id)}>
                 Modifier
                 </Button>
-                <Button size="small" color="primary" className={classes.buttonColor}>
+                </Link>
+                <Button size="small" color="primary" className={classes.buttonColor} onClick={()=> deleteRecettes(recette.id)}>
                 Supprimer
                 </Button>
             </CardActions>

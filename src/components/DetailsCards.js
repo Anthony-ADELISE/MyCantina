@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -36,6 +37,12 @@ const useStyles = makeStyles({
       fontFamily: 'Nunito',
       fontWeight: 'bold',
     },
+    colorLi: {
+        listStyle: 'none',
+        color: '#fff',
+        fontFamily: 'Nunito',
+        fontWeight: 'bold'
+    },
     buttonColor: {
         color: '#BC583A',
         fontWeight: 'bold',
@@ -62,11 +69,11 @@ function DetailsRecipe () {
         })
    
    
-    }, [])
+    }, [id])
     
     return (
         <div id="enjoy-your-meals" >
-                <Card className={classes.root}  id="card-details">
+                <Card className={classes.root}>
                 <CardActionArea>
                     <CardMedia
                     className={classes.media}
@@ -88,18 +95,28 @@ function DetailsRecipe () {
                     </Typography>
                     <Typography variant="body2" color="dark" component="p">
                     </Typography>
+                    <Typography 
+                        variant="body2" 
+                        color="textSecondary" 
+                        component="p">
+                            {recette?.ingredients.map(ingredient=>
+                              <li className={classes.colorLi}>{ingredient.slice(0,1)+" "+ingredient.slice(1)}</li>  
+                            )}
+                        
+                    </Typography>
                     <Typography variant="body2" color="dark" component="p" className={classes.colorText}>
-                        {recette?.etapes}
+                        {recette?.etapes.map(etape =>
+                            <li className={classes.colorLi}>{etape}</li>
+                            )}
                     </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary" className={classes.buttonColor}>
-                    modifier
-                    </Button>
-                    <Button size="small" color="primary" className={classes.buttonColor}>
-                    supprimer
-                    </Button>
+                <Link className={classes.linkBack} to={`/modifier`}>
+                <Button size="small" color="primary" className={classes.buttonColor}>
+                Modifier
+                </Button>
+                </Link>
                 </CardActions>
                 </Card>
                 </div>

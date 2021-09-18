@@ -7,6 +7,7 @@ import DetailsCards from './components/DetailsCards';
 import AddRecipes from './components/AddRecipes.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ListsCards from './components/ListsCards';
+import ModifyCards from './components/ModifyCards';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +32,7 @@ export default function App() {
       <Route exact path="/" component={ListsCards}></Route>
       <Route path="/ajoutsrecettes" component={AddRecipes}></Route>
       <Route exact path="/recette/:id" handleChange={(e) => console.log(e)} component={DetailsCards}></Route>
+      <Route exact path="/modifier" component={ModifyCards}></Route>
       </Router>
       
     </div>
