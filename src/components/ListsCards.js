@@ -70,9 +70,9 @@ const useStyles = makeStyles((theme) => ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function getRecettes (id)
+  function getRecettes ()
   {
-    fetch(`http://localhost:9000/api/recipes/${id}`)
+    fetch(`http://localhost:9000/api/recipes`)
     .then(res => res.json())
     .then(recipes => {
       setRecettes(recipes);
@@ -81,7 +81,15 @@ const useStyles = makeStyles((theme) => ({
 
   function selectRecettes (id) 
   {
-    console.warn(recettes[id-1])
+    
+    fetch(`http://localhost:9000/api/recipe/${id}`, {
+      method: 'GET'
+    }).then((result)=> {
+      result.json().then((resp)=> {
+        console.warn(resp)
+        getRecettes();
+      })
+    })
   }
 
   function deleteRecettes(id)

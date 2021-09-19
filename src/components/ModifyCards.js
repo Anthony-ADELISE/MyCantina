@@ -13,7 +13,7 @@ import {
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         minHeight: '100vh',
     },
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
   export default function ModifyCards () {
     const classes = useStyles();
-    const [recettes, setRecettes] = useState(null);
+    const [, setRecettes] = useState(null);
     const [titre, setTitre] = useState("");
     const [description, setDescription] = useState("");
     const [niveau, setNiveau] = useState("");
@@ -42,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
     const [tempsPreparation, setTempsPreparation] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [etapes, setEtapes] = useState("");
-    const [id, setId] = useState("");
+    const [recetteId, setRecetteId] = useState(null);
 
     useEffect(() => {
         getRecettes();
-    }, [getRecettes])
+    },[])
 
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,34 +56,38 @@ const useStyles = makeStyles((theme) => ({
     .then(res => res.json())
     .then(recipes => {
       setRecettes(recipes);
-      setTitre(recettes[0].titre)
-      setDescription(recettes[0].description)
-      setNiveau(recettes[0].niveau)
-      setPersonnes(recettes[0].personnes)
-      setTempsPreparation(recettes[0].tempsPreparation)
-      setIngredients(recettes[0].ingredients)
-      setEtapes(recettes[0].etapes)
-      setId(recettes[0].id)
+      setTitre(recipes[0].titre)
+      setDescription(recipes[0].description)
+      setNiveau(recipes[0].niveau)
+      setPersonnes(recipes[0].personnes)
+      setTempsPreparation(recipes[0].tempsPreparation)
+      setIngredients(recipes[0].ingredients)
+      setEtapes(recipes[0].etapes)
+      setRecetteId(recipes[0].id)
     });
   }
-    
- function upDateRecettes ()
- {
-     let item ={titre, description, niveau, personnes, tempsPreparation, ingredients, etapes, id}
-     fetch(`http://localhost:9000/api/recipe/${id}`, {
+
+  function updateRecettes ()
+  {
+    let item = {titre, description, niveau, personnes, tempsPreparation, ingredients, etapes, recetteId}
+    fetch(`http://localhost:9000/api/recipes`, {
       method: 'PUT',
       headers:{
-          'Accept':'application/json',
-          'Content-Type':'application/json',
+         Accept:'application/json',
+        'Content-Type':'application/json'
       },
       body:JSON.stringify(item)
     }).then((result)=> {
-      result.json().then((resp)=> {
+       result.json()
+      .then((resp)=> {
         console.warn(resp)
         getRecettes();
       })
     })
- }
+  }
+
+
+  
     
     
     return (
@@ -203,7 +207,7 @@ const useStyles = makeStyles((theme) => ({
                 _hover={{
                 bg: '#ffa500',
               }}
-              onClick={upDateRecettes}
+              onClick={updateRecettes}
               >
               Modifier
             </Button>
