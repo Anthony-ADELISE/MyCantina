@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
         color: '#ffa500',
         fontSize: '4rem',
     },
+    link: {
+        color: '#ffa500',
+        paddingRigth: '2.5em',
+        display: 'flex',
+    },
     appbarTitle: {
         flexGrow: '1',
         fontSize: '2em',
@@ -74,8 +79,9 @@ export default function Header () {
                                 </Nav.Link>
                             </LinkContainer>
                             <LinkContainer to="/ajoutsrecettes">
-                                <Nav.Link className="link">
+                                <Nav.Link className={classes.link}>
                                     <FastfoodIcon className={classes.icon} />
+                                    Create your recipes
                                 </Nav.Link>
                             </LinkContainer>
                         </Nav>

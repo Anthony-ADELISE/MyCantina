@@ -67,19 +67,18 @@ const useStyles = makeStyles(() => ({
     });
   }
 
-  function updateRecettes ()
+  function updateRecettes (id)
   {
     let item = {titre, description, niveau, personnes, tempsPreparation, ingredients, etapes, recetteId}
-    fetch(`http://localhost:9000/api/recipes`, {
+    fetch(`http://localhost:9000/api/recipe/${id}`, {
       method: 'PUT',
       headers:{
-         Accept:'application/json',
-        'Content-Type':'application/json'
+        'Accept':'application/json',
+        'Content-Type':'application/json',
       },
       body:JSON.stringify(item)
     }).then((result)=> {
-       result.json()
-      .then((resp)=> {
+      result.json().then((resp)=> {
         console.warn(resp)
         getRecettes();
       })
@@ -92,6 +91,7 @@ const useStyles = makeStyles(() => ({
     
     return (
         <div className={classes.root} id="enjoy-your-meals" >
+          
             <Flex
         justify={'center'}
             >
@@ -161,24 +161,6 @@ const useStyles = makeStyles(() => ({
                 placeholder="" 
                 className={classes.colorText}
                 value={ingredients} onChange={(e)=>setIngredients(e.target.value)}/>
-                <Select placeholder="Quantité" _placeholder={{color: '#ffa500'}}>
-                    <option>mml</option>
-                    <option>cl</option>
-                    <option>l</option>
-                </Select>
-             <Input 
-             type="text"
-             placeholder="" 
-             className={classes.colorText}
-             />
-             <Button
-              bg={'rgba(0, 0, 0, 0.5)'}
-              color={'white'}
-              _hover={{
-                bg: '#ffa500',
-              }}>
-              Submit
-            </Button>
             </Stack>
             <Stack direction='row'>
             <FormControl id="Etapes" isRequired>

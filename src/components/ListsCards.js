@@ -149,7 +149,9 @@ const useStyles = makeStyles((theme) => ({
                 Modifier
                 </Button>
                 </Link>
-                <Button size="small" color="primary" className={classes.buttonColor} onClick={()=> deleteRecettes(recette.id)}>
+                <Button size="small" color="primary" className={classes.buttonColor} onClick={e =>
+                         window.confirm("Are you sure you wish to delete this item?") && deleteRecettes(recette.id)
+                       }>
                 Supprimer
                 </Button>
             </CardActions>
